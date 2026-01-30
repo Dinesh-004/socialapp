@@ -11,7 +11,30 @@ This guide will help you deploy your Social App (Client + Server) to production.
 
 ---
 
-## 1. Environment Variables Configuration
+## 1. Set Up Database (MongoDB Atlas)
+
+You cannot use `localhost` for a deployed app. Follow these steps to get a free cloud database:
+
+1.  **Create an Account**: Go to [MongoDB Atlas](https://www.mongodb.com/cloud/atlas) and sign up.
+2.  **Create a Cluster**:
+    - Click **Build a Database**.
+    - Select **M0** (Free Tier).
+    - Choose a provider (e.g., AWS) and region close to you.
+    - Click **Create**.
+3.  **Setup Security**:
+    - **Username & Password**: Create a database user (remember the password!).
+    - **IP Access List**: click "Add My Current IP Address" but for deployment, you MUST add `0.0.0.0/0` (Allow Access from Anywhere) so Render can connect.
+4.  **Get Connection String**:
+    - Click **Connect** on your cluster.
+    - Select **Drivers**.
+    - Copy the Connection String. It looks like:
+      `mongodb+srv://<username>:<password>@cluster0.abcde.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`
+    - Replace `<password>` with your actual password.
+    - **Save this string**; this is your `MONGO_URI`.
+
+---
+
+## 2. Environment Variables Configuration
 
 Before deploying, ensure your code is ready to accept environment variables.
 (We have already updated `client/src/lib/axios.ts` and `server/src/routes/upload.ts` to use these).
@@ -33,7 +56,7 @@ Before deploying, ensure your code is ready to accept environment variables.
 
 ---
 
-## 2. Server Deployment (Recommended: Render)
+## 3. Server Deployment (Recommended: Render)
 
 1.  **Push your code to GitHub**.
 2.  Log in to [Render.com](https://render.com).
@@ -54,7 +77,7 @@ Before deploying, ensure your code is ready to accept environment variables.
 
 ---
 
-## 3. Client Deployment (Recommended: Vercel)
+## 4. Client Deployment (Recommended: Vercel)
 
 1.  Log in to [Vercel.com](https://vercel.com).
 2.  Click **Add New...** -> **Project**.
@@ -70,7 +93,7 @@ Before deploying, ensure your code is ready to accept environment variables.
 
 ---
 
-## 4. Post-Deployment
+## 5. Post-Deployment
 
 1.  Open your Vercel deployment URL.
 2.  Try to **Sign Up** to verify the connection to the server and database.
