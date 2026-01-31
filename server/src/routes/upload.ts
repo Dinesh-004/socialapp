@@ -22,7 +22,15 @@ interface MulterRequest extends Request {
 }
 
 // POST /upload
-router.post('/', upload.single('file'), async (req: Request, res: Response): Promise<void> => {
+router.post('/', (req, res, next) => {
+    upload.single('file')(req, res, (err) => {
+        if (err) {
+            console.error('Upload Error:', err);
+            return res.status(500).json({ message: 'Upload failed', error: err.message });
+        }
+        next();
+    });
+}, async (req: Request, res: Response): Promise<void> => {
     const multerReq = req as MulterRequest;
     if (!multerReq.file) {
         res.status(400).json({ message: 'No file uploaded' });

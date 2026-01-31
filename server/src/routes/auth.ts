@@ -23,7 +23,7 @@ router.get('/me', authenticateToken, async (req: AuthRequest, res: Response): Pr
     }
 });
 
-router.post('/register', async (req: Request, res: Response): Promise<void> => {
+router.post(['/register', '/signup'], async (req: Request, res: Response): Promise<void> => {
     try {
         const { username, email, password, phone } = req.body;
 
@@ -63,9 +63,9 @@ router.post('/register', async (req: Request, res: Response): Promise<void> => {
             accessToken,
             refreshToken
         });
-    } catch (err) {
-        console.error(err);
-        res.status(500).json({ message: 'Server error' });
+    } catch (err: any) {
+        console.error('Registration Error:', err);
+        res.status(500).json({ message: 'Server error', error: err.message });
     }
 });
 
