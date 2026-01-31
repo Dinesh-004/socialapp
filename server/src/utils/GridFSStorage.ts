@@ -1,7 +1,8 @@
 import { Request } from 'express';
 import multer, { StorageEngine } from 'multer';
 import mongoose from 'mongoose';
-import { GridFSBucket } from 'mongodb';
+// mongo types are available under mongoose.mongo
+type GridFSBucket = mongoose.mongo.GridFSBucket;
 
 interface GridFSStorageOptions {
     bucketName?: string;
