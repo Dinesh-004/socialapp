@@ -33,7 +33,7 @@ You cannot use `localhost` for a deployed app. Follow these steps to get a free 
 2.  In Render, click **New +** -> **Web Service**.
 3.  Connect your GitHub repository (`server` directory).
 4.  **Settings**:
-    - **Build Command**: `npm install && npm run build`
+    - **Build Command**: `npm install --legacy-peer-deps && npm run build`
     - **Start Command**: `npm start`
 5.  **Environment Variables**:
 
