@@ -1,21 +1,15 @@
 import express, { Request, Response } from 'express';
 import multer from 'multer';
-import { GridFsStorage } from 'multer-gridfs-storage';
+import { GridFSStorage } from '../utils/GridFSStorage';
 
 const router = express.Router();
 
 // Create GridFS storage engine
-const storage = new GridFsStorage({
-    url: process.env.MONGO_URI || 'mongodb://localhost:27017/instagram-clone',
-    file: (req: any, file: any) => {
-        return {
-            bucketName: 'uploads', // Collection name: uploads.files, uploads.chunks
-            filename: `${Date.now()}-${file.originalname}`
-        };
-    }
+const storage = new GridFSStorage({
+    bucketName: 'uploads'
 });
 
-const upload = multer({ storage: storage as any });
+const upload = multer({ storage });
 
 interface MulterRequest extends Request {
     file?: Express.Multer.File;
