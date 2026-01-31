@@ -2,19 +2,14 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 import express from 'express';
-console.log('Imports 1/8: express loaded');
 import mongoose from 'mongoose';
-console.log('Imports 2/8: mongoose loaded');
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import authRoutes from './routes/auth';
-console.log('Imports 5/8: authRoutes loaded');
 import postsRoutes from './routes/posts';
 import uploadRoutes from './routes/upload';
-console.log('Imports 7/8: uploadRoutes loaded');
 import usersRoutes from './routes/users';
 
-console.log('Starting App Initialization...');
 const app = express();
 const PORT = process.env.PORT || 5000;
 const MONGO_URI = process.env.MONGO_URI || 'mongodb://localhost:27017/instagram-clone';

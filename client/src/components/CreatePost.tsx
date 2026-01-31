@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import { useAuthStore } from '@/store/useAuthStore';
-import { uploadToOpeninary } from '@/lib/openinary';
 import api from '@/lib/axios';
 
 export default function CreatePost({ onPostCreated }: { onPostCreated: () => void }) {
@@ -23,7 +22,14 @@ export default function CreatePost({ onPostCreated }: { onPostCreated: () => voi
 
         try {
             // Upload to Openinary
-            const imageUrl = await uploadToOpeninary(file);
+            const formData = new FormData();
+            formData.append('file', file);
+
+            const res = await api.post('/upload', formData, {
+                headers: { 'Content-Type': 'multipart/form-data' }
+            });
+
+            const imageUrl = res.data.url; // Assign the URL from the response
 
             // Create Post on Server
             await api.post('/posts', {
