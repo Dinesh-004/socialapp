@@ -1,17 +1,18 @@
 import express, { Request, Response } from 'express';
 import multer from 'multer';
-import axios from 'axios';
-import FormData from 'form-data';
+import { v2 as cloudinary } from 'cloudinary';
 import fs from 'fs';
 
 const router = express.Router();
 const upload = multer({ dest: 'uploads/' });
 
-// Openinary URL (Internal Docker Network or Localhost)
-// Openinary URL (Internal Docker Network, Localhost, or External Service)
-const OPENINARY_URL = process.env.OPENINARY_URL || 'http://localhost:3000';
+// Configure Cloudinary
+cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET
+});
 
-// Multer adds 'file' to the Request object
 interface MulterRequest extends Request {
     file?: Express.Multer.File;
 }
@@ -24,59 +25,26 @@ router.post('/', upload.single('file'), async (req: Request, res: Response): Pro
         return;
     }
 
-    console.log('Proxying Upload:', {
-        filename: multerReq.file.originalname,
-        type: multerReq.file.mimetype,
-        size: multerReq.file.size,
-        hasApiKey: !!process.env.OPENINARY_API_KEY
-    });
-
     try {
-        // Read file into buffer to ensure correct Content-Length in proxy request
-        const fileBuffer = fs.readFileSync(multerReq.file.path);
-        const formData = new FormData();
-        // Changing field name to 'files' as per Openinary source code
-        formData.append('files', fileBuffer, {
-            filename: multerReq.file.originalname,
-            contentType: multerReq.file.mimetype,
+        // Upload to Cloudinary
+        const result = await cloudinary.uploader.upload(multerReq.file.path, {
+            folder: 'instagram-clone', // Organize uploads
         });
 
-        const headers = {
-            ...formData.getHeaders(),
-            'Authorization': `Bearer ${process.env.OPENINARY_API_KEY}`
-        };
-
-        console.log('Sending Headers (Buffer):', headers);
-
-        // Proxy to Openinary
-        const response = await axios.post(`${OPENINARY_URL}/api/upload`, formData, {
-            headers
-        });
-
-        // Clean up temp file
+        // Clean up local file
         fs.unlinkSync(multerReq.file.path);
 
-        // Return Openinary response (URL)
-        // Return Openinary response (URL)
-        // Openinary returns { success: true, files: [{ url: '/t/...' }] }
-        const imageUrl = response.data.files?.[0]?.url;
-        if (!imageUrl) {
-            throw new Error('No URL in response');
+        res.json({ url: result.secure_url });
+    } catch (err: any) {
+        // Clean up local file if it exists
+        if (multerReq.file && fs.existsSync(multerReq.file.path)) {
+            fs.unlinkSync(multerReq.file.path);
         }
 
-        // Prepend Openinary URL if it's a relative path (Openinary often returns /t/...)
-        const fullUrl = imageUrl.startsWith('http') ? imageUrl : `${OPENINARY_URL}${imageUrl}`;
-
-        res.json({ url: fullUrl });
-    } catch (err: any) {
-        // Clean up temp file
-        if (multerReq.file) fs.unlinkSync(multerReq.file.path);
-
-        console.error('Upload Error:', err.response?.data || err.message);
+        console.error('Cloudinary Upload Error:', err);
         res.status(500).json({
-            message: 'Failed to upload to Openinary',
-            error: err.response?.data || err.message,
-            status: err.response?.status
+            message: 'Failed to upload image',
+            error: err.message
         });
     }
 });
