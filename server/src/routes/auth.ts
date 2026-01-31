@@ -23,7 +23,7 @@ router.get('/me', authenticateToken, async (req: AuthRequest, res: Response): Pr
     }
 });
 
-router.post(['/register', '/signup'], async (req: Request, res: Response): Promise<void> => {
+router.post('/signup', async (req: Request, res: Response): Promise<void> => {
     try {
         const { username, email, password, phone } = req.body;
 

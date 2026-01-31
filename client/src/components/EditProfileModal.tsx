@@ -71,7 +71,7 @@ export default function EditProfileModal({ user, onClose, onUpdate }: EditProfil
     };
 
     return (
-        <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+        <div className="fixed inset-0 bg-black/50 z-[60] flex items-center justify-center p-4">
             <div className="bg-white dark:bg-zinc-900 rounded-xl w-full max-w-md overflow-hidden shadow-2xl animate-in zoom-in-95 duration-200">
                 <div className="border-b border-zinc-200 dark:border-zinc-800 p-4 flex justify-between items-center">
                     <h2 className="font-semibold text-lg">Edit Profile</h2>

@@ -138,7 +138,7 @@ export default function PostCard({ post }: PostProps) {
     };
 
     return (
-        <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg overflow-hidden mb-6 w-full max-w-2xl">
+        <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg overflow-hidden mb-6 w-full max-w-lg mx-auto">
             {/* Header */}
             <div className="p-4 flex items-center gap-3">
                 <Link href={`/profile/${post.user.username}`} className="flex items-center gap-3">

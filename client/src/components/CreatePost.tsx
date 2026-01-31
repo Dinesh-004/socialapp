@@ -94,7 +94,7 @@ export default function CreatePost({ onPostCreated }: { onPostCreated: () => voi
     };
 
     return (
-        <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg p-6 mb-8 w-full max-w-2xl">
+        <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg p-6 mb-8 w-full max-w-2xl mx-auto">
             <h3 className="text-xl font-bold mb-4">Create Post</h3>
 
             {error && <div className="text-red-500 mb-4">{error}</div>}

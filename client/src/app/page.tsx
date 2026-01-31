@@ -53,7 +53,7 @@ export default function Home() {
                     <Link href="/auth/login" className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-full">
                         Login
                     </Link>
-                    <Link href="/auth/register" className="bg-zinc-200 hover:bg-zinc-300 text-black px-6 py-2 rounded-full">
+                    <Link href="/auth/signup" className="bg-zinc-200 hover:bg-zinc-300 text-black px-6 py-2 rounded-full">
                         Sign Up
                     </Link>
                 </div>

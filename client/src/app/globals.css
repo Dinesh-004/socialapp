@@ -1,8 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');
 @import "tailwindcss";
 
 :root {
     --foreground-rgb: 0, 0, 0;
-    --background-start-rgb: 214, 219, 220;
+    --background-start-rgb: 255, 255, 255;
     --background-end-rgb: 255, 255, 255;
 }
 
@@ -16,7 +17,15 @@
 
 body {
     color: rgb(var(--foreground-rgb));
-    background: linear-gradient(to bottom,
-            transparent,
-            rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
+    background: rgb(var(--background-start-rgb));
+}
+
+@layer utilities {
+    .pb-safe-area {
+        padding-bottom: env(safe-area-inset-bottom);
+    }
+
+    .font-instagram {
+        font-family: 'Dancing Script', cursive;
+    }
 }
