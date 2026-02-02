@@ -36,7 +36,7 @@ router.post('/', (req, res, next) => {
 
     // Construct the URL to serve the file
     // Assuming backend serves this at /file/:filename
-    const baseUrl = process.env.API_URL || 'http://localhost:5000'; // Define API_URL or derive it
+    const baseUrl = process.env.API_URL; // Define API_URL or derive it
     const fileUrl = `${baseUrl}/file/${multerReq.file.filename}`;
 
     res.json({ url: fileUrl });

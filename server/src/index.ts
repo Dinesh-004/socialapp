@@ -12,11 +12,16 @@ import usersRoutes from './routes/users';
 
 const app = express();
 const PORT = process.env.PORT || 5000;
-const MONGO_URI = process.env.MONGO_URI || 'mongodb://localhost:27017/instagram-clone';
+const MONGO_URI = process.env.MONGO_URI;
+
+if (!MONGO_URI) {
+    console.error('MONGO_URI is undefined. Please check your .env file.');
+    process.exit(1);
+}
 
 // Middleware
 app.use(cors({
-    origin: process.env.CLIENT_URL || 'http://localhost:3001',
+    origin: process.env.CLIENT_URL,
     credentials: true
 }));
 app.use(express.json());
