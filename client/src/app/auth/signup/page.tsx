@@ -24,12 +24,12 @@ export default function SignupPage() {
 
     return (
         <div className="flex min-h-screen flex-col items-center justify-center p-6">
-            <div className="w-full max-w-md space-y-8 rounded-lg border p-6 shadow-lg bg-white dark:bg-black dark:border-gray-800">
-                <h2 className="text-center text-3xl font-bold tracking-tight">
+            <div className="w-full max-w-md space-y-8 rounded-lg border p-4 sm:p-6 shadow-lg bg-white dark:bg-black dark:border-gray-800">
+                <h2 className="text-center text-2xl sm:text-3xl font-bold tracking-tight">
                     Create a new account
                 </h2>
                 {error && (
-                    <div className="rounded bg-red-100 p-3 text-red-600">
+                    <div className="rounded bg-red-100 p-3 text-red-600 text-sm">
                         {error}
                     </div>
                 )}
@@ -39,7 +39,7 @@ export default function SignupPage() {
                             <input
                                 type="text"
                                 required
-                                className="relative block w-full rounded-t-md border-0 p-3 py-2 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-900 dark:ring-gray-700"
+                                className="relative block w-full rounded-t-md border-0 p-3 py-2 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 text-base sm:text-sm sm:leading-6 dark:bg-gray-900 dark:ring-gray-700"
                                 placeholder="Username"
                                 value={username}
                                 onChange={(e) => setUsername(e.target.value)}
@@ -49,7 +49,7 @@ export default function SignupPage() {
                             <input
                                 type="email"
                                 required
-                                className="relative block w-full border-0 p-3 py-2 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-900 dark:ring-gray-700"
+                                className="relative block w-full border-0 p-3 py-2 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 text-base sm:text-sm sm:leading-6 dark:bg-gray-900 dark:ring-gray-700"
                                 placeholder="Email address"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
@@ -59,7 +59,7 @@ export default function SignupPage() {
                             <input
                                 type="password"
                                 required
-                                className="relative block w-full rounded-b-md border-0 p-3 py-2 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-900 dark:ring-gray-700"
+                                className="relative block w-full rounded-b-md border-0 p-3 py-2 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 text-base sm:text-sm sm:leading-6 dark:bg-gray-900 dark:ring-gray-700"
                                 placeholder="Password"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}

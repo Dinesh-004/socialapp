@@ -94,14 +94,14 @@ export default function CreatePost({ onPostCreated }: { onPostCreated: () => voi
     };
 
     return (
-        <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg p-6 mb-8 w-full max-w-2xl mx-auto">
+        <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg p-4 sm:p-6 mb-8 w-full max-w-2xl mx-auto">
             <h3 className="text-xl font-bold mb-4">Create Post</h3>
 
-            {error && <div className="text-red-500 mb-4">{error}</div>}
+            {error && <div className="text-red-500 mb-4 text-sm">{error}</div>}
 
             <form onSubmit={handleSubmit} className="space-y-4">
                 <textarea
-                    className="w-full p-3 bg-zinc-100 dark:bg-zinc-800 rounded-lg resize-none outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full p-3 bg-zinc-100 dark:bg-zinc-800 rounded-lg resize-none outline-none focus:ring-2 focus:ring-blue-500 text-base sm:text-sm"
                     placeholder="What's on your mind?"
                     rows={3}
                     value={caption}
@@ -110,21 +110,18 @@ export default function CreatePost({ onPostCreated }: { onPostCreated: () => voi
 
                 {/* Aspect Ratio Selector */}
                 {file && (
-                    <div className="flex gap-2 mb-4">
+                    <div className="flex gap-2 mb-4 overflow-x-auto pb-2 scrollbar-none">
                         {(['square', 'portrait', 'landscape'] as const).map((ratio) => (
                             <button
                                 key={ratio}
                                 type="button"
                                 onClick={() => {
                                     setAspectRatio(ratio);
-                                    // Set default values for manual selection if needed, 
-                                    // but usually we rely on auto-detect. 
-                                    // If user forces a change, we might want to force a standard ratio.
                                     if (ratio === 'square') setAspectRatioValue(1);
                                     if (ratio === 'portrait') setAspectRatioValue(0.8);
                                     if (ratio === 'landscape') setAspectRatioValue(1.91);
                                 }}
-                                className={`px-3 py-1 text-sm rounded-full border transition-colors ${aspectRatio === ratio
+                                className={`px-3 py-1 text-sm rounded-full border transition-colors whitespace-nowrap ${aspectRatio === ratio
                                     ? 'bg-blue-600 border-blue-600 text-white'
                                     : 'bg-white dark:bg-zinc-800 border-zinc-200 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-700'
                                     }`}
@@ -162,7 +159,6 @@ export default function CreatePost({ onPostCreated }: { onPostCreated: () => voi
                                         img.onload = () => {
                                             const ratio = img.width / img.height;
                                             setAspectRatioValue(ratio);
-                                            // Heuristics for labels
                                             if (Math.abs(ratio - 1) < 0.1) setAspectRatio('square');
                                             else if (ratio > 1) setAspectRatio('landscape');
                                             else setAspectRatio('portrait');
@@ -194,7 +190,7 @@ export default function CreatePost({ onPostCreated }: { onPostCreated: () => voi
                     </div>
                 )}
 
-                <div className="flex items-center justify-between">
+                <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
                     <input
                         type="file"
                         accept="image/*"
@@ -216,13 +212,13 @@ export default function CreatePost({ onPostCreated }: { onPostCreated: () => voi
                                 img.src = URL.createObjectURL(file);
                             }
                         }}
-                        className="text-sm text-zinc-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 dark:file:bg-blue-900/30 dark:file:text-blue-400"
+                        className="text-sm text-zinc-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 dark:file:bg-blue-900/30 dark:file:text-blue-400 w-full sm:w-auto"
                     />
 
                     <button
                         type="submit"
                         disabled={isLoading || !file || !caption}
-                        className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-full disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                        className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-full disabled:opacity-50 disabled:cursor-not-allowed transition-colors w-full sm:w-auto"
                     >
                         {isLoading ? 'Posting...' : 'Post'}
                     </button>

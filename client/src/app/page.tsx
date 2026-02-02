@@ -46,9 +46,9 @@ export default function Home() {
 
     if (!isAuthenticated) {
         return (
-            <main className="flex min-h-screen flex-col items-center justify-center p-24 text-center">
-                <h1 className="text-4xl font-bold mb-6">Instagram Clone</h1>
-                <p className="mb-8 text-xl text-zinc-600 dark:text-zinc-400">Share your moments with the world.</p>
+            <main className="flex min-h-screen flex-col items-center justify-center p-6 lg:p-24 text-center">
+                <h1 className="text-2xl md:text-4xl font-bold mb-6">Instagram Clone</h1>
+                <p className="mb-8 text-lg md:text-xl text-zinc-600 dark:text-zinc-400">Share your moments with the world.</p>
                 <div className="flex gap-4">
                     <Link href="/auth/login" className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-full">
                         Login
