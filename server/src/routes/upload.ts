@@ -35,9 +35,11 @@ router.post('/', (req, res, next) => {
     // The file object will contain the 'filename' in GridFS (not 'path' like diskStorage)
 
     // Construct the URL to serve the file
-    // Assuming backend serves this at /file/:filename
-    const baseUrl = process.env.API_URL; // Define API_URL or derive it
-    const fileUrl = `${baseUrl}/file/${multerReq.file.filename}`;
+    // Construct the URL to serve the file
+    // Dynamically determine the base URL based on the request
+    const protocol = req.headers['x-forwarded-proto'] ? 'https' : req.protocol;
+    const host = req.get('host');
+    const fileUrl = `${protocol}://${host}/file/${multerReq.file.filename}`;
 
     res.json({ url: fileUrl });
 });
